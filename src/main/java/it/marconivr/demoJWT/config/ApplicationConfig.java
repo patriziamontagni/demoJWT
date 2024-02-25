@@ -7,6 +7,7 @@ package it.marconivr.demoJWT.config;
 
 import it.marconivr.demoJWT.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -54,4 +55,15 @@ public class ApplicationConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    
+//    @Bean
+//    public FilterRegistrationBean<RequestResponseLoggingFilter> loggingFilter(){
+//        FilterRegistrationBean<RequestResponseLoggingFilter> registrationBean 
+//          = new FilterRegistrationBean<>();
+//
+//        registrationBean.setFilter(new RequestResponseLoggingFilter());
+//        registrationBean.addUrlPatterns("/api/v1/auth/*");
+//        registrationBean.setOrder(1);
+//        return registrationBean;    
+//    }
 }

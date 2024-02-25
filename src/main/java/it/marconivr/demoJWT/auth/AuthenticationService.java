@@ -34,6 +34,7 @@ public class AuthenticationService {
                 .lastname(request.getLastname())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
+                //.password(request.getPassword())
                 .role(Role.USER)
                 .build();
         repository.save(user);
@@ -52,8 +53,10 @@ public class AuthenticationService {
                 );
         //se username e password sono corrette... arrivo qui...
         //genero il token e lo spedisco indietro
+        System.out.println(request.getEmail());
         var user = repository.findByEmail(request.getEmail())
                     .orElseThrow();
+        System.out.println(user);
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
