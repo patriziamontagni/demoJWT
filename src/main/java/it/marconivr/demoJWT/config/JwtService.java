@@ -29,6 +29,8 @@ import org.springframework.stereotype.Service;
 public class JwtService {
 
     private static final String SECRET_KEY = "qi+Et/TK2Ls84b6aqN6fHmvf9dyZe500l0wrOfevjOM+3gtIrEKBgIiXFqgxYBUc";
+    //timeout token... 5' --> 5*60*1000 millisec
+    private static final long EXPIRATION_TIME = 5*60*1000; 
     
     String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -49,7 +51,8 @@ public class JwtService {
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()+ 1000 * 60 * 24))
+                //durata token: 
+                .setExpiration(new Date(System.currentTimeMillis()+ EXPIRATION_TIME))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
         
